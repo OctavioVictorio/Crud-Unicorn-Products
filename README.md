@@ -9,13 +9,13 @@
 
 ### Instala las dependencias:
 
-npm install
+- npm install
 
 ### Inicia la aplicación:
 
-npm run dev
+- npm run dev
 
-La aplicación estará corriendo en http://localhost:5173
+- La aplicación estará corriendo en http://localhost:5173
 
 ### 🧪 Funcionalidades
 
