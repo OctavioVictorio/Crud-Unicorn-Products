@@ -4,8 +4,8 @@
 
 ### Clona este repositorio:
 
-git clone repo 
-cd nombre-repo
+- git clone https://github.com/OctavioVictorio/Crud-Unicorn-Products.git
+- cd Crud-Unicorn-Products
 
 ### Instala las dependencias:
 
