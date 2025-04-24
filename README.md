@@ -6,6 +6,9 @@
 
 - git clone https://github.com/OctavioVictorio/Crud-Unicorn-Products.git
 - cd Crud-Unicorn-Products
+ 
+### Cambia en UnicornContext.jsx 
+- const API_URL = "https://crudcrud.com/api/AquiVaTuEndpoinActivo/unicorns"
 
 ### Instala las dependencias:
 
