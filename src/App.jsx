@@ -3,11 +3,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UnicornRoutes from "./unicorns";
 import { UnicornProvider } from "./context/UnicornContext";
 import ProductsRoutes from "./products";
+import IndexRoutes from "./home";
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<IndexRoutes />} />
         <Route
           path="/unicornios/*"
           element={

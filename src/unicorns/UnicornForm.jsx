@@ -85,6 +85,23 @@ const UnicornForm = () => {
             )}
           </div>
 
+          <div className="field">
+            <label htmlFor="estado">Estado</label>
+            <InputText
+              id="estado"
+              name="estado"
+              value={formik.values.estado}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={
+                formik.touched.estado && formik.errors.estado ? "p-invalid" : ""
+              }
+            />
+            {formik.touched.estado && formik.errors.estado && (
+              <small className="p-error">{formik.errors.estado}</small>
+            )}
+          </div>
+
           <div className="flex justify-content-between">
             <Button
               className="p-button-success"

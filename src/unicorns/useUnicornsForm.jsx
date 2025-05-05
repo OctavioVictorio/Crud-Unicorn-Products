@@ -14,6 +14,7 @@ export const useUnicornForm = () => {
     color: "",
     edad: "",
     poder: "",
+    estado: "",
   });
 
   useEffect(() => {
@@ -25,6 +26,7 @@ export const useUnicornForm = () => {
           color: unicornToEdit.color,
           edad: unicornToEdit.edad,
           poder: unicornToEdit.poder,
+          estado: unicornToEdit.estado,
         });
       }
     }
@@ -46,6 +48,7 @@ export const useUnicornForm = () => {
         .max(100, "La edad no puede ser mayor a 100")
         .required("Requerido"),
       poder: Yup.string().required("Requerido"),
+      estado: Yup.string().required("Requerido"),
     }),
     onSubmit: async (values) => {
       if (id) {
