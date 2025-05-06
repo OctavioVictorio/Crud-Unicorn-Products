@@ -5,9 +5,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Card } from "primereact/card";
 import { getProducts, deleteProduct } from "./productsData";
-
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
+import { exportToPdf } from "../utils/ExportToPdf";
 
 const ProductView = () => {
   const [products, setProducts] = useState([]);
@@ -36,48 +34,7 @@ const ProductView = () => {
   const handleEdit = (id) => {
     navigate(`/productos/editar/${id}`);
   };
-  const exportToPDF = () => {
-    const doc = new jsPDF();
 
-    doc.setFontSize(18);
-    doc.setTextColor(73, 59, 132);
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const title = "Lista de Productos";
-    const textWidth = doc.getTextWidth(title);
-    const x = (pageWidth - textWidth) / 2;
-    doc.text(title, x, 22);
-
-    const tableColumn = ["Nombre", "Precio", "Categoría", "Descripción"];
-    const tableRows = [];
-
-    products.forEach((product) => {
-      tableRows.push([
-        product.nombre || "",
-        product.precio || "",
-        product.categoria || "",
-        product.descripcion || "",
-      ]);
-    });
-
-    autoTable(doc, {
-      startY: 30,
-      head: [tableColumn],
-      body: tableRows,
-      styles: {
-        fillColor: [233, 236, 239],
-        fontSize: 10,
-        halign: "center",
-      },
-      headStyles: {
-        fillColor: [73, 59, 132],
-        textColor: [255, 255, 255],
-        fontStyle: "bold",
-      },
-      alternateRowStyles: { fillColor: [248, 249, 250] },
-    });
-
-    doc.save("productos.pdf");
-  };
   const actionBodyTemplate = (rowData) => (
     <div className="flex justify-content-center">
       <Button
@@ -93,9 +50,16 @@ const ProductView = () => {
     </div>
   );
 
+  const columns = [
+    { field: "nombre", header: "Nombre" },
+    { field: "precio", header: "Precio" },
+    { field: "categoria", header: "Categoría" },
+    { field: "descripcion", header: "Descripción" },
+  ];
+
   return (
     <div className="p-4">
-      <Button label="Inicio" className="mb-4" onClick={() => navigate("/")}/>
+      <Button label="Inicio" className="mb-4" onClick={() => navigate("/")} />
 
       <Card title="Lista de Productos" className="w-full">
         <div className="flex justify-content-end">
@@ -109,7 +73,7 @@ const ProductView = () => {
             label="Exportar PDF"
             icon="pi pi-file-pdf"
             className="p-button-warning ml-2"
-            onClick={exportToPDF}
+            onClick={() => exportToPdf(products, "Productos", columns)}
           />
         </div>
 

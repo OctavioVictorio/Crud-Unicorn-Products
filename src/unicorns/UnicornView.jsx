@@ -6,12 +6,9 @@ import { Column } from "primereact/column";
 import { Card } from "primereact/card";
 import { useUnicorns } from "../context/UnicornContext";
 
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
-
 
 const UnicornsView = () => {
-  const { unicorns, deleteUnicorn } = useUnicorns();
+  const { unicorns, deleteUnicorn, exportToPdf } = useUnicorns();
   const navigate = useNavigate();
 
   const handleEdit = (id) => {
@@ -23,50 +20,6 @@ const UnicornsView = () => {
       deleteUnicorn(id);
     }
   };
-
-const exportToPDF = () => {
-  const doc = new jsPDF();
-
-  doc.setFontSize(18);
-  doc.setTextColor(73, 59, 132);
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const title = "Lista de Unicornios";
-  const textWidth = doc.getTextWidth(title);
-  const x = (pageWidth - textWidth) / 2;
-  doc.text(title, x, 22);
-
-  const tableColumn = ["Nombre", "Color", "Poder", "Edad", "Estado"];
-  const tableRows = [];
-
-  unicorns.forEach((unicorn) => {
-    tableRows.push([
-      unicorn.nombre || "",
-      unicorn.color || "",
-      unicorn.poder || "",
-      unicorn.edad || "",
-      unicorn.estado || "",
-    ]);
-  });
-
-  autoTable(doc, {
-    startY: 30,
-    head: [tableColumn],
-    body: tableRows,
-    styles: {
-      fillColor: [233, 236, 239],
-      fontSize: 10,
-      halign: "center",
-    },
-    headStyles: {
-      fillColor: [73, 59, 132],
-      textColor: [255, 255, 255],
-      fontStyle: "bold",
-    },
-    alternateRowStyles: { fillColor: [248, 249, 250] },
-  });
-
-  doc.save("unicornios.pdf");
-};
 
   const actionBodyTemplate = (rowData) => (
     <div className="flex gap-2">
@@ -83,6 +36,14 @@ const exportToPDF = () => {
     </div>
   );
 
+  const columns = [
+    { field: "nombre", header: "Nombre" },
+    { field: "color", header: "Color" },
+    { field: "edad", header: "Edad" },
+    { field: "poder", header: "Poder" },
+    { field: "estado", header: "Estado" },
+  ];
+
   return (
     <div className="p-4">
       <Button label="Inicio" className="mb-4" onClick={() => navigate("/")} />
@@ -98,7 +59,7 @@ const exportToPDF = () => {
             label="Exportar PDF"
             icon="pi pi-file-pdf"
             className="p-button-warning ml-2"
-            onClick={exportToPDF}
+            onClick={() => exportToPdf(unicorns, "Unicornios", columns)}
           />
         </div>
 

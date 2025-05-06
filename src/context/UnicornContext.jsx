@@ -1,9 +1,10 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { exportToPdf } from "../utils/ExportToPdf";
 
 const UnicornContext = createContext();
 const API_URL =
-  "https://crudcrud.com/api/fdda1aaee90f4945a78bfd1ed512c202/unicorns";
+  "https://crudcrud.com/api/58580efeb4784f0ca72f9bfd2d6b170a/unicorns";
 
 export const UnicornProvider = ({ children }) => {
   const [unicorns, setUnicorns] = useState([]);
@@ -67,6 +68,7 @@ export const UnicornProvider = ({ children }) => {
         createUnicorn,
         editUnicorn,
         deleteUnicorn,
+        exportToPdf,
       }}
     >
       {children}
